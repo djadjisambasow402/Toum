@@ -1,8 +1,10 @@
 ---
-- name: Install Ansible on Debian/Ubuntu
+- name: Deploy to Kubernetes
   hosts: kub
   become: yes
   tasks:
-    - name: Update apt cache
-      apt:
-        update_cache: yes
+    - name: Apply Kubernetes manifest
+      shell: |
+        cd /home/diadji402/
+        kubectl apply -f deploiement.yaml --validate=false
+

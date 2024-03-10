@@ -14,12 +14,30 @@ pipeline {
     //}
     // CI Pipline
     stages {
-        stage('echo et teste unitaire') {
+
+        stage('echo ') {
             steps {
                 echo 'test webhook'
             }
-                
-   
+        }
+        
+        stage('BUILD and run ') {
+            steps {
+                script {
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                }
+            }
+        }
+
+        stage('Push sur dockerhub') {
+            steps {
+                script {
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub-dss', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                    }
+                }
+            }
         }
     }
 }

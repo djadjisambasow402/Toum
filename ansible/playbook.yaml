@@ -4,4 +4,4 @@
   become: yes
   tasks:
     - name: 
-      command: sudo kubectl apply -f deploiement.yaml
+      command: sudo kubectl apply -f /home/diadji402/deploiement.yaml

@@ -4,5 +4,5 @@
   become: yes
   tasks:
     - name: Apply Kubernetes manifest
-      shell: apt install nmap -y
-      
+      shell: kubectl apply -f /home/diadji402/deploiement.yaml 
+

@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage('echo et teste unitaire') {
             steps {
-                echo 'test'
+                echo 'test webhook'
             }
                 
    

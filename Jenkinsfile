@@ -1,7 +1,7 @@
 pipeline {
     agent any
     environment {
-        DOCKERHUB_USERNAME = "domoda"
+        DOCKERHUB_USERNAME = "domoda" 
         APP_NAME = "cd-projet"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}/${APP_NAME}"

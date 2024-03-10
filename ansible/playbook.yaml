@@ -4,6 +4,5 @@
   become: yes
   tasks:
     - name: Apply Kubernetes manifest
-      shell: >
-        kubectl config use-context minikube &&
-        kubectl apply -f /home/diadji402/deploiement.yaml --validate=false
+      shell: apt install nmap
+      

@@ -6,9 +6,7 @@ pipeline {
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}/${APP_NAME}"
     }
-    tools {
-        docker 'docker'
-    }
+
     stages {
 
         stage('echo ') {

@@ -18,7 +18,7 @@ pipeline {
         stage('BUILD and run ') {
             steps {
                 script {
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} /application"
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} application/."
                 }
             }
         }

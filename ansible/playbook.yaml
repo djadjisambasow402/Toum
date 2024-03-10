@@ -3,5 +3,6 @@
   hosts: kub
   become: yes
   tasks:
-    - name: 
-      command: kubectl apply -f /home/diadji402/deploiement.yaml --validate=false
+    - name: Update apt cache
+      apt:
+        update_cache: yes

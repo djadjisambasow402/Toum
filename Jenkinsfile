@@ -15,11 +15,10 @@ pipeline {
     // CI Pipline
     stages {
         stage('echo et teste unitaire') {
-                stage('version') {
-                    steps {
-                        echo 'test'
-                    }
-                }
+            steps {
+                echo 'test'
+            }
+                
    
         }
     }

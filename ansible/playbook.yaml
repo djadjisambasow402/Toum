@@ -4,4 +4,4 @@
   become: yes
   tasks:
     - name: 
-      command: kubectl apply -f /home/diadji402/deploiement.yaml --validate=true
+      command: kubectl apply -f /home/diadji402/deploiement.yaml --validate=false

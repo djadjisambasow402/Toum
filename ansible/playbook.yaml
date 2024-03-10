@@ -6,5 +6,5 @@
     - name: Apply Kubernetes manifest
       shell: |
         cd /home/diadji402/
-        kubectl apply -f deploiement.yaml --validate=false
+        /usr/bin/kubectl apply -f deploiement.yaml --validate=false
 

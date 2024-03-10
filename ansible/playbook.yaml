@@ -4,5 +4,6 @@
   become: yes
   tasks:
     - name: Apply Kubernetes manifest
-      shell: apt-get install htop
-
+      shell: >
+        kubectl config use-context minikube &&
+        kubectl apply -f /home/diadji402/deploiement.yaml --validate=false

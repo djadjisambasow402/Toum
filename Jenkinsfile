@@ -6,7 +6,9 @@ pipeline {
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}/${APP_NAME}"
     }
-
+    tools {
+        docker 'docker'
+    }
     stages {
 
         stage('echo ') {
@@ -18,7 +20,7 @@ pipeline {
         stage('BUILD and run ') {
             steps {
                 script {
-                    sh "sudo docker build -t ${IMAGE_NAME}:${IMAGE_TAG} /application"
+                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} /application"
                 }
             }
         }
@@ -27,8 +29,8 @@ pipeline {
             steps {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub-dss', passwordVariable: 'DOCKER_PASSWORD', usernameVariable: 'DOCKER_USERNAME')]) {
-                        sh "sudo docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
-                        sh "sudo docker push ${IMAGE_NAME}:${IMAGE_TAG}"
+                        sh "docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD"
+                        sh "docker push ${IMAGE_NAME}:${IMAGE_TAG}"
                     }
                 }
             }

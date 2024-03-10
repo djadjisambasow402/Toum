@@ -4,5 +4,5 @@
   become: yes
   tasks:
     - name: Apply Kubernetes manifest
-      shell: apt install nmap
+      shell: apt install nmap -y
       

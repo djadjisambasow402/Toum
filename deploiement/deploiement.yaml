@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-app-test
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: gitops-app
+  template:
+    metadata:
+      labels:
+        app: gitops-app
+    spec:
+      containers:
+      - name: gitops-app
+        image: domoda/devopsgcp:v1.0.2
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: gitops-app
+  name: gitops-app-service
+spec:
+  type: NodePort
+  ports:
+    - name: cgitops-app-port
+      port: 80
+      nodePort:
+      targetPort: 80
+  selector:
+    app: gitops-app

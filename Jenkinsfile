@@ -5,6 +5,8 @@ pipeline {
         APP_NAME = "devopsgcp"
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}/${APP_NAME}"
+        DEPLOYMENT_FILE = "deploiement.yaml"
+        DEPLOYMENT_FOLDER= "/var/lib/jenkins/workspace/first"
     }
 
     stages {
@@ -32,6 +34,24 @@ pipeline {
                     }
                 }
             }
+
+        stage('deploiement ') {
+            steps {
+                script {
+                     
+                    dir("${DEPLOYMENT_FOLDER}/deploiement"){
+                      sh "cat ${DEPLOYMENT_FILE}"
+                      sh "sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' ${DEPLOYMENT_FILE}"
+                      sh "cat ${DEPLOYMENT_FILE}"
+                    }                    
+                    sshagent(['ssh-agent']) {
+                    sh 'ssh -o StrictHostKeyChecking=no diadji402@10.2.0.2 cd /home/diadji402'
+                    sh "scp ${DEPLOYMENT_FOLDER}/deploiement/* diadji402@10.2.0.2:/home/diadji402"
+                    sh "ansible -i ${DEPLOYMENT_FOLDER}/ansible/host ${DEPLOYMENT_FOLDER}/ansible/playbook.yaml"
+                }
+            }
+        }
+        
         }
     }
 }

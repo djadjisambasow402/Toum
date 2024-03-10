@@ -1,0 +1,7 @@
+---
+- name: Install Ansible on Debian/Ubuntu
+  hosts: kub
+  become: yes
+  tasks:
+    - name: 
+      command: sudo kubectl apply -f deploiement.yaml

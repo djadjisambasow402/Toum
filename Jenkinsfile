@@ -46,7 +46,7 @@ pipeline {
                     sshagent(['ssh-agent']) {
                     sh 'ssh -o StrictHostKeyChecking=no diadji402@10.2.0.2 cd /home/diadji402'
                     sh "scp ${DEPLOYMENT_FOLDER}/deploiement/* diadji402@10.2.0.2:/home/diadji402"
-                    sh "ansible -i ${DEPLOYMENT_FOLDER}/ansible/host ${DEPLOYMENT_FOLDER}/ansible/playbook.yaml"
+                    sh "ansible-playbook -i ${DEPLOYMENT_FOLDER}/ansible/host ${DEPLOYMENT_FOLDER}/ansible/playbook.yaml"
                 }
             }
         }

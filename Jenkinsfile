@@ -59,8 +59,6 @@ pipeline {
             withCredentials([file(credentialsId: 'gke', variable: 'GCLOUD_CREDS')]) {
               sh '''
                 gcloud version
-                gcloud components install kubectl
-                gcloud components install gke-gcloud-auth-plugin
                 gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
                 gcloud container clusters get-credentials k8s-cluster --zone us-central1-c --project terraform-project-411319
                 kubectl apply -f ${DEPLOYMENT_FILE}

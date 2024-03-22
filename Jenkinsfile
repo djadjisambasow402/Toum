@@ -47,7 +47,7 @@ pipeline {
                     sh 'ssh -o StrictHostKeyChecking=no diadji402@10.128.0.14 cd /home/diadji402'
                     sh "scp ${DEPLOYMENT_FOLDER}/deploiement/* diadji402@10.128.0.14:/home/diadji402"
                    // ansiblePlaybook become: true, installation: 'ansible', inventory: 'ansible/host', playbook: 'ansible/playbook.yaml'
-                    ansiblePlaybook become: true, becomeUser: 'diadji402', credentialsId: 'ssh-agent', installation: 'ansible', inventory: 'host', playbook: 'playbook.yaml', sudo: true, sudoUser: 'diadji402' 
+                    ansiblePlaybook become: true, becomeUser: 'diadji402', credentialsId: 'ssh-agent', installation: 'ansible', inventory: 'ansible/host', playbook: 'ansible/playbook.yaml', sudo: true, sudoUser: 'diadji402' 
                 }
             }
         }

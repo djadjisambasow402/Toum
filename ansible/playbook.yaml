@@ -17,5 +17,5 @@
         ports:
           - "80:80"
         volumes:
-          - "/host/path:/container/path"
+          - "/var/www/html"
         restart_policy: always

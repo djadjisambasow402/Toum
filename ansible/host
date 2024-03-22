@@ -1,2 +1,2 @@
-[kub]
-10.128.0.14 ansible_connection=ssh ansible_user=diadji402
+[dev]
+10.182.0.27 ansible_connection=ssh ansible_user=diadji402

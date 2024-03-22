@@ -1,7 +1,21 @@
 ---
-- name: Deploy to Kubernetes
-  hosts: kub
-  become: yes
+- name: Pull and run Docker image
+  hosts: dev
+  become: true
   tasks:
-    - name: Apply Kubernetes manifest
-      shell: kubectl apply -f /home/diadji402/deploiement.yaml 
+    - name: Pull Docker image
+      docker_image:
+        name: "{{ docker_image_name }}"
+        tag: "{{ docker_image_tag }}"
+        source: pull
+
+    - name: Run Docker container
+      docker_container:
+        name: "your_container_name"
+        image: "{{ docker_image_name }}:{{ docker_image_tag }}"
+        state: started
+        ports:
+          - "host_port:container_port"
+        volumes:
+          - "/host/path:/container/path"
+        restart_policy: always

@@ -15,7 +15,7 @@
         image: "{{ docker_image_name }}:{{ docker_image_tag }}"
         state: started
         ports:
-          - "host_port:container_port"
+          - "80:80"
         volumes:
           - "/host/path:/container/path"
         restart_policy: always

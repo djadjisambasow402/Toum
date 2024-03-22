@@ -53,5 +53,15 @@ pipeline {
         }
         
         }
+        stage('test') {
+          steps {
+            withCredentials([file(credentialsId: 'gke', variable: 'GCLOUD_CREDS')]) {
+              sh '''
+                gcloud version
+                gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
+              '''
+            }
+          }
+        }
     }
 }

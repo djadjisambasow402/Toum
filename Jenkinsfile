@@ -42,6 +42,7 @@ pipeline {
                       sh "cat ${DEPLOYMENT_FILE}"
                       sh "sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' ${DEPLOYMENT_FILE}"
                       sh "cat ${DEPLOYMENT_FILE}"
+                      sh "cp ${DEPLOYMENT_FILE} ${DEPLOYMENT_FOLDER}"
                     }                    
                     sshagent(['ssh-agent']) {
                     sh 'ssh -o StrictHostKeyChecking=no diadji402@10.128.0.14 cd /home/diadji402'
@@ -60,6 +61,8 @@ pipeline {
                 gcloud version
                 gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
                 gcloud container clusters get-credentials k8s-cluster --zone us-central1-c --project terraform-project-411319
+                kubectl apply -f ${DEPLOYMENT_FILE}
+                
               '''
             }
           }

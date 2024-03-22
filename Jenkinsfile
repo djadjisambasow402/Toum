@@ -35,7 +35,7 @@ pipeline {
                 }
             }
         }
-        stage('deploiement ') {
+        stage('deploiement dans l'environnement dev') {
             steps {
                 script {   
                     dir("${DEPLOYMENT_FOLDER}/deploiement"){
@@ -45,16 +45,27 @@ pipeline {
                       sh "cp ${DEPLOYMENT_FILE} ${DEPLOYMENT_FOLDER}"
                     }                    
                     sshagent(['ssh-agent']) {
-                    sh 'ssh -o StrictHostKeyChecking=no diadji402@10.128.0.14 cd /home/diadji402'
-                    sh "scp ${DEPLOYMENT_FOLDER}/deploiement/* diadji402@10.128.0.14:/home/diadji402"
-                   // ansiblePlaybook become: true, installation: 'ansible', inventory: 'ansible/host', playbook: 'ansible/playbook.yaml'
-                    //ansiblePlaybook become: true, becomeUser: 'diadji402', credentialsId: 'ssh-agent', installation: 'ansible', inventory: 'ansible/host', playbook: 'ansible/playbook.yaml' 
-                }
+                    sh 'ssh -o StrictHostKeyChecking=no diadji402@10.182.0.27 cd /home/diadji402'
+                    sh "scp ${DEPLOYMENT_FOLDER}/deploiement/* diadji402@10.182.0.27:/home/diadji402"
+                    ansiblePlaybook(
+                        become: true,
+                        becomeUser: 'diadji402',
+                        credentialsId: 'ssh-agent',
+                        installation: 'ansible',
+                        inventory: 'ansible/host',
+                        playbook: 'ansible/playbook.yaml',
+                        extraVars: [
+                            docker_image_name: "${IMAGE_NAME}",
+                            docker_image_tag: "${IMAGE_TAG}"
+                        ]
+                    )
+                    
+                 }
             }
         }
         
         }
-        stage('test') {
+        stage('deploiement dans l'environnement prod on gke') {
           steps {
             withCredentials([file(credentialsId: 'gke', variable: 'GCLOUD_CREDS')]) {
               sh '''

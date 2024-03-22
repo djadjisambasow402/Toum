@@ -6,7 +6,8 @@ pipeline {
         IMAGE_TAG = "v1.0.${BUILD_NUMBER}"
         IMAGE_NAME = "${DOCKERHUB_USERNAME}/${APP_NAME}"
         DEPLOYMENT_FILE = "deploiement.yaml"
-        DEPLOYMENT_FOLDER= "/var/lib/jenkins/workspace/first"
+        DEPLOYMENT_FOLDER= "/var/lib/jenkins/workspace/devops1
+"
     }
 
     stages {

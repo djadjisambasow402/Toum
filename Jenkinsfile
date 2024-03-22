@@ -35,7 +35,7 @@ pipeline {
                 }
             }
         }
-        stage('deploiement dans l'environnement dev') {
+        stage("deploiement dans l'environnement dev") {
             steps {
                 script {   
                     dir("${DEPLOYMENT_FOLDER}/deploiement"){
@@ -65,7 +65,7 @@ pipeline {
         }
         
         }
-        stage('deploiement dans l'environnement prod on gke') {
+        stage("deploiement dans l'environnement prod on gke") {
           steps {
             withCredentials([file(credentialsId: 'gke', variable: 'GCLOUD_CREDS')]) {
               sh '''

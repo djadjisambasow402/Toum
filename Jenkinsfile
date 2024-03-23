@@ -37,13 +37,7 @@ pipeline {
         }
         stage("deploiement dans l'environnement dev") {
             steps {
-                script {   
-                    dir("${DEPLOYMENT_FOLDER}/deploiement"){
-                      sh "cat ${DEPLOYMENT_FILE}"
-                      sh "sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' ${DEPLOYMENT_FILE}"
-                      sh "cat ${DEPLOYMENT_FILE}"
-                      sh "cp ${DEPLOYMENT_FILE} ${DEPLOYMENT_FOLDER}"
-                    }                    
+                script {                   
                     sshagent(['ssh-agent']) {
                     sh 'ssh -o StrictHostKeyChecking=no diadji402@10.182.0.27 cd /home/diadji402'
                     sh "scp ${DEPLOYMENT_FOLDER}/deploiement/* diadji402@10.182.0.27:/home/diadji402"
@@ -59,14 +53,19 @@ pipeline {
                             docker_image_tag: "${IMAGE_TAG}"
                         ]
                     )
-                    
+                    }
                  }
             }
         }
         
-        }
         stage("deploiement dans l'environnement prod on gke") {
           steps {
+            dir("${DEPLOYMENT_FOLDER}/deploiement"){
+            sh "cat ${DEPLOYMENT_FILE}"
+            sh "sed -i 's/${APP_NAME}.*/${APP_NAME}:${IMAGE_TAG}/g' ${DEPLOYMENT_FILE}"
+            sh "cat ${DEPLOYMENT_FILE}"
+            sh "cp ${DEPLOYMENT_FILE} ${DEPLOYMENT_FOLDER}"
+            }
             withCredentials([file(credentialsId: 'gke', variable: 'GCLOUD_CREDS')]) {
               sh '''
                 gcloud version

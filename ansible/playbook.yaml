@@ -11,7 +11,7 @@
 
     - name: Run Docker container
       docker_container:
-        name: "your_container_name"
+        name: "toumama"
         image: "{{ docker_image_name }}:{{ docker_image_tag }}"
         state: started
         ports:

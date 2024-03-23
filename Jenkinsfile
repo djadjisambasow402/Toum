@@ -39,8 +39,7 @@ pipeline {
             steps {
                 script {                   
                     sshagent(['ssh-agent']) {
-                    sh 'ssh -o StrictHostKeyChecking=no diadji402@10.182.0.27 cd /home/diadji402'
-                    sh "scp ${DEPLOYMENT_FOLDER}/deploiement/* diadji402@10.182.0.27:/home/diadji402"
+                    sh 'ssh -o StrictHostKeyChecking=no diadji402@10.2.0.2 cd /home/diadji402'
                     ansiblePlaybook(
                         become: true,
                         becomeUser: 'diadji402',

@@ -69,7 +69,7 @@ pipeline {
               sh '''
                 gcloud version
                 gcloud auth activate-service-account --key-file="$GCLOUD_CREDS"
-                gcloud container clusters get-credentials k8s-cluster --zone us-central1-c --project terraform-project-411319
+                gcloud container clusters get-credentials k8-cluster --zone us-central1-c --project terraform-project-411319
                 kubectl apply -f  ${DEPLOYMENT_FILE}
                 
               '''
